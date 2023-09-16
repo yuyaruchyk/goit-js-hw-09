@@ -9,7 +9,6 @@ const selectors = {
   seconds: document.querySelector('[data-seconds]'),
 };
 
-const flatpickr = require("flatpickr");
 const options = {
   enableTime: true,
   time_24hr: true,
@@ -24,8 +23,8 @@ const options = {
     } else {
       selectors.startBtn.disabled = false;
     }
-      const timer = {
-          
+
+    const timer = {
       start() {
         setInterval(() => {
           const startTime = selectedDates[0];
@@ -42,17 +41,25 @@ const options = {
     };
 
     selectors.startBtn.addEventListener('click', () => {
-        timer.start();
-        if (selectors.days.textContent === "00" && selectors.hours.textContent === "00" && selectors.minutes.textContent === "00" && selectors.seconds.textContent === "00") {
-            return;
-        }
+      timer.start();
+      if (
+        selectors.days.textContent === "00" &&
+        selectors.hours.textContent === "00" &&
+        selectors.minutes.textContent === "00" &&
+        selectors.seconds.textContent === "00"
+      ) {
+        return;
+      }
     });
-      
   },
-});
+};
+
+flatpickr("#datetime-picker", options);
+
 function pad(value) {
   return String(value).padStart(2, '0');
 }
+
 function getTimeComponents(time) {
   const milliseconds = Math.abs(time);
   const seconds = pad(Math.floor((milliseconds / 1000) % 60));
