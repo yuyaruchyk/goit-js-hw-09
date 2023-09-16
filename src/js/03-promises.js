@@ -23,9 +23,11 @@ function createPromise(position, delay) {
             const step = parseInt(event.currentTarget.step.value);
             const amount = parseInt(event.currentTarget.amount.value);
 
+              
+         
             for (let i = 1; i <= amount; i++) {
                 const position = i;
-                const promiseDelay = delay + (i - 1) * step;
+const promiseDelay = delay + step * (i - 1);
 
                 createPromise(position, promiseDelay)
                     .then(({ position, delay }) => {
@@ -36,5 +38,10 @@ function createPromise(position, delay) {
                     });
             }
         });
+  
+  
+
+            
+      
 
 
