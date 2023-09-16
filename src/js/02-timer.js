@@ -1,4 +1,4 @@
-import flatpickr from 'flatpickr';
+import flatpickr from "flatpickr";
 import 'flatpickr/dist/flatpickr.min.css';
 
 const selectors = {
@@ -9,7 +9,7 @@ const selectors = {
   seconds: document.querySelector('[data-seconds]'),
 };
 
-const flatpickr = require('flatpickr');
+const flatpickr = require("flatpickr");
 const options = {
   enableTime: true,
   time_24hr: true,
