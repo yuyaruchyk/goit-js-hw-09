@@ -8,6 +8,7 @@ const selectors = {
   minutes: document.querySelector('[data-minutes]'),
   seconds: document.querySelector('[data-seconds]'),
 };
+selectors.startBtn.disabled = true;
 
 const options = {
   enableTime: true,
@@ -16,6 +17,7 @@ const options = {
   minuteIncrement: 1,
   onClose(selectedDates) {
     console.log(selectedDates[0]);
+
     const currentDate = new Date();
     if (selectedDates[0] < currentDate) {
       window.alert('Please choose a date in the future');
@@ -24,14 +26,21 @@ const options = {
       selectors.startBtn.disabled = false;
     }
 
+    let intervalId; 
+
     const timer = {
       start() {
-        setInterval(() => {
+        intervalId = setInterval(() => {
           const startTime = selectedDates[0];
           const finishTime = Date.now();
           const deltaTime = startTime - finishTime;
-          const { days, hours, minutes, seconds } =
-            getTimeComponents(deltaTime);
+
+          if (deltaTime <= 0) {
+            clearInterval(intervalId); 
+            return;
+          }
+
+          const { days, hours, minutes, seconds } = getTimeComponents(deltaTime);
           selectors.days.textContent = days;
           selectors.hours.textContent = hours;
           selectors.minutes.textContent = minutes;
@@ -42,14 +51,7 @@ const options = {
 
     selectors.startBtn.addEventListener('click', () => {
       timer.start();
-      if (
-        selectors.days.textContent === "00" &&
-        selectors.hours.textContent === "00" &&
-        selectors.minutes.textContent === "00" &&
-        selectors.seconds.textContent === "00"
-      ) {
-        return;
-      }
+      selectors.startBtn.disabled = true;
     });
   },
 };
